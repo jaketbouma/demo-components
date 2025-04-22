@@ -1,0 +1,33 @@
+[tool.poetry]
+name = "shopkeeper_provider"
+version = "0.1.0"
+description = "Platform service that manages producers and consumers in the marketplace"
+authors = ["Jake Bouma"]
+license = "MIT"
+
+[tool.poetry.dependencies]
+python = "^3.9"
+pydantic = "^1.8"
+pulumi = "^3.0"
+pulumi-aws = "^6.0.2"
+
+[tool.poetry.group.dev.dependencies]
+pytest = "^6.2"
+black = "^25.1.0"
+autopep8 = "^2.3.2"
+flake8 = "^7.1.2"
+debugpy = "^1.8.14"
+
+[build-system]
+requires = ["poetry-core>=1.0.0"]
+build-backend = "poetry.core.masonry.api"
+
+[tool.pytest.ini_options]
+minversion = "6.0"
+addopts = "-ra -q -p no:warnings"
+filterwarnings = [
+    "ignore::DeprecationWarning:aws.*:"
+]
+testpaths = [
+    "tests"
+]
