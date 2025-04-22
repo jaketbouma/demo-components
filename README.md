@@ -1,0 +1,23 @@
+# Building cross language infrastructure components from Python with Pulumi
+
+Pulumi components are an important abstraction that we want to extend across languages.
+
+Previously, the only way to share these components was to develop a provider.
+Pulumi offers boilerplate repos for each authoring language (see for example python's [pulumi-component-provider-py-boilerplate](https://github.com/pulumi/pulumi-component-provider-py-boilerplate)).
+Peeking into the Makefile, you quickly see that building SDKs for every supported language is complex, fragile, and sadly not hidden away from the author.
+
+I tried to move the python boilerplate repo from pip to poetry, but ultimately got lost in a swamp of `cd`, `cp`, `mv` and makefile targets.
+I gave up when I heard that this is getting a major overhaul, right before the [announcement of pulumi components](https://www.pulumi.com/blog/pulumi-components/).
+What they have done with the "next generation of Pulumi components" is open up another path for sharing components across languages, where the user of the package builds the SDK in the language they're using. Pulumi of course hides the build process away from the user.
+
+That's a bit expensive for the user, but nice rapid development. Hopefully, this is a step towards a simpler build process for providers, so that we can pay for the build process up front and for everybody.
+
+Today (22/04/2025), we have a nice [blog post on building components](https://www.pulumi.com/docs/iac/using-pulumi/extending-pulumi/build-a-component/), but given that it's new, and that it's not including Poetry, I thought to take it for a spin.
+
+In this repo I'll aim to:
+1. Build a silly component resource
+2. Use poetry, no requirements and no pip
+3. Write tests with pytest
+4. Use the component resouce in another pulumi project
+
+Stay tuned!
