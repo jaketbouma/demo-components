@@ -1,4 +1,4 @@
-FROM pulumi/pulumi
+FROM pulumi/pulumi:latest
 
 # Install golangci-lint
 RUN version=1.42.1 \
@@ -48,7 +48,6 @@ EXPOSE 5678
 
 USER $USER_NAME
 ENV GITHUB_USERNAME=${GITHUB_USERNAME}
-RUN chezmoi init --apply $GITHUB_USERNAME
 
 # The base container sets XDG_CACHE_HOME XDG_CONFIG_HOME specifically for the root user, we can't unset them in a way that vscode will pick up, so we set them to values for the new user.
 # Installing go extensions via vscode use these paths so if we just leave it set to /root/.cache we'll get permission errors.

@@ -1,0 +1,7 @@
+name: some name!?
+description: Some plugin description
+runtime:
+  name: python
+  options:
+    toolchain: poetry
+version: 0.0.0

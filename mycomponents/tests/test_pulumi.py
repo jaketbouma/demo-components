@@ -21,7 +21,7 @@ pulumi.runtime.set_mocks(
 )
 
 
-from shopkeeper_provider.staticpage import StaticPage, StaticPageArgs
+from mycomponents.staticpage import StaticPage, StaticPageArgs
 
 mock_content = "<h1>Ollo</h1>"
 

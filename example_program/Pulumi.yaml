@@ -1,0 +1,19 @@
+name: my-static-page
+runtime: yaml
+description: A stack that makes a static page about...?
+
+packages:
+  mycomponents:
+    source: ../mycomponents
+    version: 0.0.0
+
+
+resources:
+  myPage:
+    name: mypage
+    type: mycomponents:StaticPage
+    properties:
+      indexContent: "Hello fuglen"
+
+outputs:
+  websiteUrl: ${myPage.websiteUrl}
