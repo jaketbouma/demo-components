@@ -88,11 +88,3 @@ def test_static_page(example_static_page):
         example_static_page.index_content,
         example_static_page.website_url,
     ).apply(test_bucket)
-
-@pulumi.runtime.test
-def test_static_page_bucket_object(example_static_page):
-    logger.info(type(example_static_page.bucket_object))
-    def test_bucket_object(args):
-        logger.info(args)
-        assert 1==0
-    example_static_page.bucket_object.urn.apply(test_bucket_object)
