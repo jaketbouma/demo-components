@@ -9,7 +9,7 @@
 	"features": {
 		"ghcr.io/devcontainers/features/github-cli:1": {
         	"version": "latest"
-    	}
+		}
 	},
 
 	// Use 'forwardPorts' to make a list of ports inside the container available locally.
@@ -25,7 +25,11 @@
             "settings": {
                 "terminal.integrated.defaultProfile.linux": "zsh",
                 "terminal.integrated.profiles.linux": { "zsh": { "path": "/bin/zsh" } }
-            }
+			},
+			"extensions": [
+				"pulumi.pulumi-vscode-tools",
+				"ms-python.debugpy"
+			]
         }
     },
 

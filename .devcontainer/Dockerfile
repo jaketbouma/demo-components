@@ -54,6 +54,8 @@ ENV GITHUB_USERNAME=${GITHUB_USERNAME}
 ENV XDG_CONFIG_HOME=/home/$USER_NAME/.config
 ENV XDG_CACHE_HOME=/home/$USER_NAME/.cache
 
+ENV POETRY_VIRTUALENVS_IN_PROJECT=true
+
 # Install zsh stuff
 RUN wget https://github.com/robbyrussell/oh-my-zsh/raw/master/tools/install.sh -O - | zsh || true
 RUN git clone --depth=1 https://github.com/romkatv/powerlevel10k.git "${ZSH_CUSTOM:-$HOME/.oh-my-zsh/custom}/themes/powerlevel10k"
