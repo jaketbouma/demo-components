@@ -13,6 +13,7 @@ class StaticPageArgs(TypedDict):
 
 class StaticPage(pulumi.ComponentResource):
     website_url: pulumi.Output[str]
+    bucket_object: s3.BucketObject
 
     def __init__(
         self, name: str, args: StaticPageArgs, opts: Optional[ResourceOptions] = None
@@ -69,7 +70,7 @@ class StaticPage(pulumi.ComponentResource):
         )
 
         # Create a bucket object for the index document.
-        index_object = s3.BucketObject(
+        self.bucket_object = s3.BucketObject(
             f"{name}-index-object",
             bucket=bucket.bucket,
             key="index.html",
@@ -88,7 +89,7 @@ class StaticPage(pulumi.ComponentResource):
 
         self.website_url = bucket_website_configuration.website_endpoint
 
-        self.register_outputs({"website_url": self.website_url, "bucket": bucket})
+        self.register_outputs({"website_url": self.website_url})
 
 
 def _allow_getobject_policy(bucket_name: str) -> str:

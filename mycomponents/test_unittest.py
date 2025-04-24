@@ -39,7 +39,7 @@ class TestingWithMocks(unittest.TestCase):
             index_content = args[0]
             logger.info(f"test_bucket: '{sp._name}' with args={args}")
             assert index_content == mock_content
-            assert 1==1
+            assert 1 == 1
             return 1
 
         # BUG: for some reason, pytest hangs sporadically when we use named arguments to pulumi.Output.all!? This took some hunting.

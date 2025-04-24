@@ -48,5 +48,6 @@
 	],
 	"containerEnv": {
 		"GITHUB_USERNAME": "jaketbouma"
-	}
+	},
+	"init": true
 }
