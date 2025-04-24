@@ -1,5 +1,4 @@
 from pulumi.provider.experimental import component_provider_host
-
 from mycomponents.staticpage import StaticPage
 
 if __name__ == "__main__":
