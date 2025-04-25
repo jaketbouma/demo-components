@@ -19,6 +19,34 @@ What's in the box:
 Currently, to develop Pulumi components with python is to walk a poorly marked trail. Step off the path, and you quickly get lost. Hopefully, a comprehensive example will gives a clearer path and useful reference. So far, I've identified the following quirks;
 - flaky pytests that sometimes hang indefinitely with `pulumi.runtime.Mock`, due to threading (see [#7663](https://github.com/pulumi/pulumi/issues/7663#issuecomment-2828721990))
 
+### Vscode with devcontainer, zsh, pytest and debugger setup
+![vscode with devcontainer screenshot](docs/image.png)
+
+### Pulumi stack from example program
+```
+Current stack is dev:
+    Owner: XXX
+    Last updated: 49 seconds ago (2025-04-25 10:01:06.368746303 +0000 UTC)
+    Pulumi version used: v3.163.0
+Current stack resources (11):
+    TYPE                                                                       NAME
+    pulumi:pulumi:Stack                                                        my-static-page-dev
+    ├─ pulumi:providers:mycomponents                                           default
+    ├─ mycomponents:index:StaticPage                                           myPage
+    │  └─ aws:s3/bucketV2:BucketV2                                             myPage-bucket
+    │     ├─ aws:s3/bucketOwnershipControls:BucketOwnershipControls            myPage-BucketOwnershipControls
+    │     ├─ aws:s3/bucketPublicAccessBlock:BucketPublicAccessBlock            myPage-BucketPublicAccessBlock
+    │     ├─ aws:s3/bucketObject:BucketObject                                  myPage-index-object
+    │     ├─ aws:s3/bucketPolicy:BucketPolicy                                  myPage-bucket-policy
+    │     ├─ aws:s3/bucketWebsiteConfigurationV2:BucketWebsiteConfigurationV2  myPage-BucketWebsiteConfigurationV2
+    │     └─ aws:s3/bucketAclV2:BucketAclV2                                    myPage-BucketAclV2
+    └─ pulumi:providers:aws                                                    default_6_77_1
+
+Current stack outputs (1):
+    OUTPUT      VALUE
+    websiteUrl  mypage-XXX.s3-website.eu-north-1.amazonaws.com
+```
+
 
 ## Background (April 2025)
 Pulumi components are an important abstraction that we want to extend across languages.
