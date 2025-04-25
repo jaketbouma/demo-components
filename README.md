@@ -1,5 +1,26 @@
-# Building cross language infrastructure components from Python with Pulumi
+# Pulumi components with python
 
+An opinionated development environment for building and testing pulumi component resources with python.
+
+Prerequisites:
+ - Docker
+ - vscode and devcontainers extension
+ - set environment variable GITHUB_USERNAME on the host machine, which is used to build the devcontainer
+ - chezmoi for syncing your dotfiles into the dev container
+ - an aws account, and you can log into the aws cli (e.g. with `aws sso login`)
+ - a pulumi cloud account
+
+What's in the box:
+- Python tools: poetry, pytest, black, debugpy, flake8
+- Pulumi tools: based on `pulumi/pulumi:latest`, includes all supported languages (needed for generating pulumi sdks) and pulumi-ctl. Don't try and install all these yourself :sweat-smile:
+- vscode extensions for the above
+- An example component that deploys a static web page on s3. Some mock tests, and integration tests coming soon :rocket:
+
+Currently, to develop Pulumi components with python is to walk a poorly marked trail. Step off the path, and you quickly get lost. Hopefully, a comprehensive example will gives a clearer path and useful reference. So far, I've identified the following quirks;
+- flaky pytests that sometimes hang indefinitely with `pulumi.runtime.Mock`, due to threading (see [#7663](https://github.com/pulumi/pulumi/issues/7663#issuecomment-2828721990))
+
+
+## Background (April 2025)
 Pulumi components are an important abstraction that we want to extend across languages.
 
 Previously, the only way to share these components was to develop a provider.
