@@ -14,7 +14,7 @@ mock_content = "<h1>Example!</h1>"
 @pytest.fixture
 def example_static_page():
     """
-        inspired by https://github.com/pulumi/pulumi/blob/da70a80fcfd37b8b32fc736a167ca15173bbb00d/sdk/python/lib/test_with_mocks/test_testing_with_mocks.py#L173
+    inspired by https://github.com/pulumi/pulumi/blob/da70a80fcfd37b8b32fc736a167ca15173bbb00d/sdk/python/lib/test_with_mocks/test_testing_with_mocks.py#L173
     """
     loop = asyncio.get_event_loop()
     loop.set_default_executor(ImmediateExecutor())
@@ -34,7 +34,10 @@ def example_static_page():
 class MyMocks(pulumi.runtime.Mocks):
     def new_resource(self, args: pulumi.runtime.MockResourceArgs):
         if args.typ == "mycomponents:index:StaticPage":
-            outputs = dict(args.inputs, website_url="http://example.com")
+            # really not sure where these mocks end up :/
+            outputs = dict(
+                website_url="http://bananas.com", banana="yellow", **args.inputs
+            )
             logger.info(outputs)
             return [args.name + "_id", outputs]
         return [args.name + "_id", args.inputs]
@@ -44,11 +47,13 @@ class MyMocks(pulumi.runtime.Mocks):
 
 
 class ImmediateExecutor(ThreadPoolExecutor):
-    """This removes multithreading from current tests. Unfortunately in
+    """
+
+    Borrowed from https://github.com/pulumi/pulumi/blob/da70a80fcfd37b8b32fc736a167ca15173bbb00d/sdk/python/lib/test_with_mocks/test_testing_with_mocks.py#L173
+
+    This removes multithreading from current tests. Unfortunately in
     presence of multithreading the tests are flaky. The proper fix is
     postponed - see https://github.com/pulumi/pulumi/issues/7663
-
-    * from https://github.com/pulumi/pulumi/blob/da70a80fcfd37b8b32fc736a167ca15173bbb00d/sdk/python/lib/test_with_mocks/test_testing_with_mocks.py#L173
     """
 
     def __init__(self):
@@ -73,18 +78,13 @@ class ImmediateExecutor(ThreadPoolExecutor):
 @pulumi.runtime.test
 def test_static_page(example_static_page):
     """
-    Getting to know unit testing pulumi component resources with python
+    Check the static page
     """
+    assert example_static_page.bucket_prefix.islower() and all(
+        c.isalnum() or c == "-" for c in example_static_page.bucket_prefix
+    ), "bucket_prefix must be lowercase alphanumeric with hyphens"
 
-    def test_bucket(args):
-        urn, index_content, website_url = args
-        logger.info(f"test_bucket: '{example_static_page._name}' with args={args}")
+    def check_index_content(index_content):
         assert index_content == mock_content
-        assert 1 == 1
 
-    # BUG: for some reason, pytest hangs sporadically when we use named arguments to pulumi.Output.all!? This took some hunting.
-    return pulumi.Output.all(
-        example_static_page.urn,
-        example_static_page.index_content,
-        example_static_page.website_url,
-    ).apply(test_bucket)
+    return example_static_page.index_content.apply(check_index_content)

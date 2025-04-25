@@ -28,7 +28,8 @@
 			},
 			"extensions": [
 				"pulumi.pulumi-vscode-tools",
-				"ms-python.debugpy"
+				"ms-python.debugpy",
+				"ms-python.flake8"
 			]
         }
     },

@@ -10,10 +10,9 @@ packages:
 
 resources:
   myPage:
-    name: mypage
     type: mycomponents:StaticPage
     properties:
-      indexContent: "Hello fuglen"
+      indexContent: "<h1>Hello apent</h1>"
 
 outputs:
   websiteUrl: ${myPage.websiteUrl}

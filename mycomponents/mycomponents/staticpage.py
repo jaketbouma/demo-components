@@ -1,9 +1,13 @@
 import json
 from typing import Optional, TypedDict
-
 import pulumi
 from pulumi import Inputs, ResourceOptions
 from pulumi_aws import s3
+import logging
+
+# Configure logging
+logging.basicConfig(level=logging.INFO)
+logger = logging.getLogger(__name__)
 
 
 class StaticPageArgs(TypedDict):
@@ -13,7 +17,6 @@ class StaticPageArgs(TypedDict):
 
 class StaticPage(pulumi.ComponentResource):
     website_url: pulumi.Output[str]
-    bucket_object: s3.BucketObject
 
     def __init__(
         self, name: str, args: StaticPageArgs, opts: Optional[ResourceOptions] = None
@@ -22,9 +25,10 @@ class StaticPage(pulumi.ComponentResource):
         super().__init__("mycomponents:index:StaticPage", name, args, opts)
 
         # Create a bucket and expose a website index document.
+        self.bucket_prefix = f"{name.lower()}-"
         bucket = s3.BucketV2(
-            f"{name}bucket",
-            bucket_prefix=f"{name}",
+            f"{name}-bucket",
+            bucket_prefix=self.bucket_prefix,
             force_destroy=True,
             opts=ResourceOptions(parent=self),
         )
@@ -70,7 +74,7 @@ class StaticPage(pulumi.ComponentResource):
         )
 
         # Create a bucket object for the index document.
-        self.bucket_object = s3.BucketObject(
+        bucket_object = s3.BucketObject(
             f"{name}-index-object",
             bucket=bucket.bucket,
             key="index.html",
@@ -88,7 +92,7 @@ class StaticPage(pulumi.ComponentResource):
         )
 
         self.website_url = bucket_website_configuration.website_endpoint
-
+        self.bucket = bucket
         self.register_outputs({"website_url": self.website_url})
 
 

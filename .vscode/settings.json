@@ -1,0 +1,8 @@
+{
+    "python.testing.pytestArgs": [
+        "mycomponents"
+    ],
+    "python.testing.unittestEnabled": false,
+    "python.testing.pytestEnabled": true,
+    "python.defaultInterpreterPath": "mycomponents/.venv/bin/python"
+}

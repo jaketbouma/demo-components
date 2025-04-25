@@ -5,9 +5,6 @@ description = "Simple example of Pulumi components with Poetry and Pytest"
 authors = ["Jake Bouma"]
 license = "MIT"
 
-[virtualenvs]
-in-project = true
-
 [tool.poetry.dependencies]
 python = "^3.9"
 pydantic = "^1.8"
