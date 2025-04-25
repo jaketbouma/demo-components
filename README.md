@@ -20,7 +20,7 @@ Currently, to develop Pulumi components with python is to walk a poorly marked t
 - flaky pytests that sometimes hang indefinitely with `pulumi.runtime.Mock`, due to threading (see [#7663](https://github.com/pulumi/pulumi/issues/7663#issuecomment-2828721990))
 
 ### Vscode with devcontainer, zsh, pytest and debugger setup
-![vscode with devcontainer screenshot](docs/image.png)
+![vscode with devcontainer screenshot](docs/vscode-screenshot.png)
 
 ### Pulumi stack from example program
 ```
