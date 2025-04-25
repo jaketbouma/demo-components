@@ -1,8 +1,10 @@
 # Pulumi components with python
 
-An opinionated development environment for building and testing pulumi component resources with python.
+An opinionated dev setup for building and testing pulumi component resources with python, *properly*.
 
-Prerequisites:
+Currently, to develop Pulumi components with python is to walk a poorly marked trail. Step off the path, and you quickly get lost. Hopefully, this helps you find your way!
+
+### Prerequisites
  - Docker
  - vscode and devcontainers extension
  - set environment variable GITHUB_USERNAME on the host machine, which is used to build the devcontainer
@@ -10,15 +12,19 @@ Prerequisites:
  - an aws account, and you can log into the aws cli (e.g. with `aws sso login`)
  - a pulumi cloud account
 
-What's in the box:
+### What's in the box
 - Python tools: poetry, pytest, black, debugpy, flake8
 - Pulumi tools: based on `pulumi/pulumi:latest`, includes all supported languages (needed for generating pulumi sdks) and pulumi-ctl. Don't try and install all these yourself :sweat-smile:
 - vscode extensions for the above
-- An example component that deploys a static web page on s3. Some mock tests, and integration tests coming soon :rocket:
+- An example component resource and program that deploys it. It just creates a static web page on s3.
+- Tests with pytest (you'll probably find `poetry run pytest -v -x --log-cli-level=DEBUG --log-level=DEBUG` useful)
 
-Currently, to develop Pulumi components with python is to walk a poorly marked trail. Step off the path, and you quickly get lost. Hopefully, a comprehensive example will gives a clearer path and useful reference. So far, I've identified the following quirks;
+### Issues and workarounds
+ So far, I've identified the following quirks;
 - flaky pytests that sometimes hang indefinitely with `pulumi.runtime.Mock`, due to threading (see [#7663](https://github.com/pulumi/pulumi/issues/7663#issuecomment-2828721990))
 
+
+## Preview :heart:
 ### Vscode with devcontainer, zsh, pytest and debugger setup
 ![vscode with devcontainer screenshot](docs/vscode-screenshot.png)
 
