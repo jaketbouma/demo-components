@@ -25,10 +25,25 @@ Currently, to develop Pulumi components with python is to walk a poorly marked t
 
 
 ## Preview :heart:
-### Vscode with devcontainer, zsh, pytest and debugger setup
+### vscode devcontainer, zsh, pytest and debugger setup
+Open in container with vscode.
 ![vscode with devcontainer screenshot](docs/vscode-screenshot.png)
+Initialize the python environment (installs to `mycomponents/.venv`)
+```
+cd mycomponents
+poetry install
+poetry run pytest
+```
 
 ### Pulumi stack from example program
+Deploying the example program;
+```
+cd example_program
+aws sso login  # or similar
+pulumi up
+```
+Sample output
+
 ```
 Current stack is dev:
     Owner: XXX

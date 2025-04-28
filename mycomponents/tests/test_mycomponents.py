@@ -36,7 +36,9 @@ class MyMocks(pulumi.runtime.Mocks):
         if args.typ == "mycomponents:index:StaticPage":
             # really not sure where these mocks end up :/
             outputs = dict(
-                website_url="http://bananas.com", banana="yellow", **args.inputs
+                website_url="http://bananas.com",
+                banana="yellow",
+                **args.inputs
             )
             logger.info(outputs)
             return [args.name + "_id", outputs]
@@ -48,7 +50,6 @@ class MyMocks(pulumi.runtime.Mocks):
 
 class ImmediateExecutor(ThreadPoolExecutor):
     """
-
     Borrowed from https://github.com/pulumi/pulumi/blob/da70a80fcfd37b8b32fc736a167ca15173bbb00d/sdk/python/lib/test_with_mocks/test_testing_with_mocks.py#L173
 
     This removes multithreading from current tests. Unfortunately in
